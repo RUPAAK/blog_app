@@ -3,6 +3,8 @@ const mongoose= require('mongoose');
 const dotenv= require('dotenv')
 const cors= require('cors')
 
+const {notFound, errorHandler}= require('./middlewares/errorHandlers')
+
 const app= express()
 
 dotenv.config()
@@ -17,6 +19,9 @@ mongoose.connect(process.env.MONGO, {
     console.error(`Error-${e.message}`)
     process.exit(1)
 })
+
+app.use(notFound)
+app.use(errorHandler)
 
 
 app.listen(process.env.PORT || 5000, ()=> console.log('SERVER UP AND RUNNING'))

@@ -1,11 +1,12 @@
-import logo from './logo.svg';
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import HomeScreen from './screens/HomeScreen'
 import './App.css';
 
 function App() {
   return (
-    <>
-      <h1>Hello</h1>
-    </>
+    <Router>
+      <Route exact path="/" component={HomeScreen} />
+    </Router>
   );
 }
 
