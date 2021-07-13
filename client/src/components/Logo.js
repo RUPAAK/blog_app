@@ -13,7 +13,7 @@ const Logo=()=>{
     return(
         <Logos>
             <img style={{width: '50px'}} src={Horse} alt="logo" />
-            <Text color={colors.primary_text} size= '1.5rem' weight={fonts.medium} margin="0 0.2rem">BLOGGED</Text>
+            <Text color={colors.primary_text} size= '1.4rem' weight={fonts.medium} margin="0">BLOGGED</Text>
         </Logos>
     )
 }
