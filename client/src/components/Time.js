@@ -9,11 +9,11 @@ const Time=()=>{
     const [period, setperiod] = useState(0)
     const getDate= async()=>{
         const date= new Date()
-        const hour= date.getHours()
+        let hour= date.getHours() > 12? date.getHours()-12 : date.getHours();
+        hour= hour< 10? "0"+ hour : hour;
         const minute= date.getMinutes()
-        const realHour= (hour+1)%12+1;
-        const period= hour>12 ? 'PM' : 'AM';
-        sethour(realHour)
+        const period= date.getHours()>12 ? 'PM' : 'AM';
+        sethour(hour)
         setminute(minute)
         setperiod(period)
     }
