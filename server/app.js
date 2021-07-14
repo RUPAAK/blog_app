@@ -3,18 +3,25 @@ const mongoose= require('mongoose');
 const dotenv= require('dotenv')
 const cors= require('cors')
 
-const {notFound, errorHandler}= require('./middlewares/errorHandlers')
-
 const app= express()
+
+const {notFound, errorHandler}= require('./middlewares/errorHandlers')
+const blogRoutes= require('./routes/blogRoutes')
+const userRoutes= require('./routes/userRoutes')
+
+
 
 dotenv.config()
 
 app.use(cors())
 app.use(express.json())
 
+app.use('/api/blog', blogRoutes)
+app.use('/api/users', userRoutes)
+
 mongoose.connect(process.env.MONGO, {
     useUnifiedTopology: true, useNewUrlParser: true
-}).then(()=>console.log('CONNECITON TO DATABASE'))
+}).then(()=>console.log(`CONNECITON TO DATABASE`))
 .catch((e)=>{
     console.error(`Error-${e.message}`)
     process.exit(1)
