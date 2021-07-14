@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {colors} from '../colors'
+import {Link} from 'react-router-dom'
 import Logo from './Logo'
 import Time from './Time'
 
@@ -9,12 +9,12 @@ const Navbar=()=>{
         height: auto;
         display: flex;
         justify-content: space-between;
-        padding: 0.4rem 0;
+        padding: 0.5rem 0;
     `
     return(
         <>
             <Container>
-                <Logo/>
+                <Link to="/"><Logo/></Link>
                 <Time/>
             </Container>
         </>
