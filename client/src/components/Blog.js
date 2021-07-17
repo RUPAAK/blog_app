@@ -33,7 +33,7 @@ const Blog = ({blog}) => {
                 <Link to={`/blog/${blog._id}`}><Button padding="0.4rem 0.8rem">Read more...</Button></Link>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <Icon>
-                        <Text padding="0 0 0 0.1rem" size="1.1rem">12</Text>
+                        <Text padding="0 0 0 0.1rem" size="1.1rem">{blog.likes}</Text>
                         <img style={{ width: '26px', height: '20px' }} src={Emoji} alt="icon" />
                     </Icon>
                     <Icon>

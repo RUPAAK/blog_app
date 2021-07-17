@@ -4,6 +4,7 @@ const Blog= require('../models/blogSchema')
 
 const newPost= asyncHandler(async(req, res)=>{
     const author= req.params.id
+    const comment= []
     const image=`https://images.unsplash.com/photo-1495567720989-cebdbdd97913?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8OXx8fGVufDB8fHx8&w=1000&q=80`;
     const {title, sub_description,description}= req.body;
     try {
@@ -11,7 +12,7 @@ const newPost= asyncHandler(async(req, res)=>{
             res.status(400)
             throw new Error('Empty field not valid')
         }
-        const newBlog= await new Blog({title, sub_description, description, author, image}).save();
+        const newBlog= await new Blog({title, sub_description, description, author, image, comment}).save();
         if(!newBlog){
             res.status(400)
             throw new Error('Failed to Save')
@@ -44,4 +45,20 @@ const blogDetail= asyncHandler(async(req, res)=>{
     }
 })
 
-module.exports= {newPost, allBLogs, blogDetail}
+const likeBlog= asyncHandler(async(req, res)=>{
+    try {
+        const blog= await Blog.findById(req.params.id)
+        if(!blog){
+            res.status(400)
+            throw new Error('Blog not found')
+        }
+        blog.likes= blog.likes+1;
+        blog.save()
+        res.status(200).json(blog)
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
+})
+
+module.exports= {newPost, allBLogs, blogDetail, likeBlog}
