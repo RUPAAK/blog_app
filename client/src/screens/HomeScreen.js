@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../components/GlobalComponents/Layout'
-import Navbar from '../components/Navbar.js'
 import Blog from '../components/Blog'
 import { colors } from '../colors'
 import { fonts } from '../fonts'

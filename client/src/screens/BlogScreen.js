@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../components/GlobalComponents/Layout'
-import Navbar from '../components/Navbar.js'
 import { Link } from 'react-router-dom'
 import Emoji from '../assests/icons/Emoji.png'
 import Comment from '../assests/icons/Comment.png'
@@ -11,13 +10,11 @@ import styled from 'styled-components'
 import Button from '../components/Button'
 import Footer from '../components/Footer'
 import IndividualComment from '../components/IndividualComment'
-import { useDispatch, useSelector } from 'react-redux'
-import { blogDetailAction } from '../actions/blogActions'
+
 import axios from 'axios'
 
 const BlogScreen = ({ match }) => {
     const blogId = match.params.id
-    const dispatch = useDispatch()
     const [blog, setblog] = useState([])
     const [likes, setlikes] = useState(0)
 
@@ -29,9 +26,6 @@ const BlogScreen = ({ match }) => {
         }
         getBlog()
     }, [blogId])
-
-    const blogDetails = useSelector(state => state.blogDetails)
-
 
     const likeAdd = () => {
         async function addLike() {
