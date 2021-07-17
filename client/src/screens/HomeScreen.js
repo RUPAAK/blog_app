@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../components/GlobalComponents/Layout'
 import Navbar from '../components/Navbar.js'
-import Emoji from '../assests/icons/Emoji.png'
-import Comment from '../assests/icons/Comment.png'
 import Blog from '../components/Blog'
 import { colors } from '../colors'
 import { fonts } from '../fonts'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Text from '../components/Text'
 import styled from 'styled-components'
 import Button from '../components/Button'
+import { useDispatch, useSelector } from 'react-redux'
+import { allBlogsAction } from '../actions/blogActions'
 
 const HomeScreen = () => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(allBlogsAction())
+    }, [dispatch])
+    const allBlogs = useSelector(state => state.allBlogs)
+    const { loading, blogs, error } = allBlogs
+
     const Span = styled.div`
         width: 100%;
         position: relative;
@@ -39,9 +46,10 @@ const HomeScreen = () => {
         grid-row-gap: 1.8rem;
     `
 
+
+
     return (
         <Layout>
-            <Navbar />
             <hr style={{ height: '0.1px', border: 'none', background: 'grey' }} />
             <div style={{ width: '100%' }}>
                 <div style={{ display: 'flex', padding: '1.8rem 0 3rem 0', justifyContent: 'space-between' }}>
@@ -58,7 +66,7 @@ const HomeScreen = () => {
                     <Link to="/register"><Button radius="32px" size="1rem" width="11.5rem" padding="0.5rem 0.4rem" weight={fonts.medium}>Login / Register</Button></Link>
                 </div>
                 <CardContainer>
-                    <Blog />
+                    {blogs?.map(blog => <Blog blog={blog} />)}
                 </CardContainer>
             </div>
         </Layout>

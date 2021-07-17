@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Navbar from '../Navbar'
 import {colors} from '../../colors'
 
 const Layout= ({children})=>{
@@ -10,6 +11,7 @@ const Layout= ({children})=>{
     `   
     return(
         <LayoutContainer>
+            <Navbar/>
             {children}
         </LayoutContainer>
     )

@@ -4,7 +4,6 @@ const Blog= require('../models/blogSchema')
 
 const newPost= asyncHandler(async(req, res)=>{
     const author= req.params.id
-    console.log(author)
     const image=`https://images.unsplash.com/photo-1495567720989-cebdbdd97913?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8OXx8fGVufDB8fHx8&w=1000&q=80`;
     const {title, sub_description,description}= req.body;
     try {
@@ -35,4 +34,14 @@ const allBLogs= asyncHandler(async(req, res)=>{
     }
 })
 
-module.exports= {newPost, allBLogs}
+const blogDetail= asyncHandler(async(req, res)=>{
+    try {
+        const blog= await Blog.findById(req.params.id).populate("author", "username")
+        res.status(200).json(blog)
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
+})
+
+module.exports= {newPost, allBLogs, blogDetail}

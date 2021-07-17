@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 import Text from './Text'
 import Button from './Button'
+import {Link} from 'react-router-dom'
 import { fonts } from '../fonts'
 import { colors } from '../colors'
 import Emoji from '../assests/icons/Emoji.png'
 import Comment from '../assests/icons/Comment.png'
 
-const Blog = () => {
+const Blog = ({blog}) => {
     const Card = styled.span`
     width: 100%;
     background: ${colors.secondary_background};
@@ -19,14 +20,17 @@ const Blog = () => {
     justify-content: center;
     margin-right: 0.5rem;
     `
+    const trim=(text, n)=>{
+        return text?.length>n? text.substr(0, n-1)+ '...': text
+    }
     return (
         <Card>
-            <Text padding="0.6rem 1rem" weight={fonts.medium} size="1.1rem">This is first post</Text>
-            <Text width="95%" weight={fonts.medium} padding="0.4rem 1rem" size="0.9rem">This is the second letter second letter that i have types as a progeammer. An that is a complete fa....</Text>
+            <Text padding="0.6rem 1rem" weight={fonts.medium} size="1.1rem">{blog.title}</Text>
+            <Text width="95%" weight={fonts.medium} padding="0.4rem 1rem" size="0.9rem">{trim(`${blog.sub_description}`, 87)}</Text>
             <div style={{
                 width: '100%', padding: '0.4rem 1rem', display: 'flex', justifyContent: 'space-between'
             }}>
-                <Button padding="0.4rem 0.8rem">Read more...</Button>
+                <Link to={`/blog/${blog._id}`}><Button padding="0.4rem 0.8rem">Read more...</Button></Link>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <Icon>
                         <Text padding="0 0 0 0.1rem" size="1.1rem">12</Text>

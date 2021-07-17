@@ -5,13 +5,12 @@ const cors= require('cors')
 
 const app= express()
 
+dotenv.config()
+
 const {notFound, errorHandler}= require('./middlewares/errorHandlers')
 const blogRoutes= require('./routes/blogRoutes')
 const userRoutes= require('./routes/userRoutes')
 
-
-
-dotenv.config()
 
 app.use(cors())
 app.use(express.json())

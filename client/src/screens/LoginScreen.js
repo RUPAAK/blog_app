@@ -38,7 +38,6 @@ const RegisterScreen = () => {
 
     return (
         <Layout>
-            <Navbar />
             <hr style={{ height: '0.1px', border: 'none', background: 'grey' }} />
             <div >
                 <div style={{ display: 'flex', padding: '1.8rem 0 3rem 0', justifyContent: 'space-between' }}>

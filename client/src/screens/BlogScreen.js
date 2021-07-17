@@ -11,8 +11,20 @@ import styled from 'styled-components'
 import Button from '../components/Button'
 import Footer from '../components/Footer'
 import IndividualComment from '../components/IndividualComment'
+import { useDispatch, useSelector } from 'react-redux'
+import { blogDetailAction } from '../actions/blogActions'
 
-const BlogScreen = () => {
+const BlogScreen = ({match}) => {
+    const blogId= match.params.id
+    console.log(blogId)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(blogDetailAction(blogId))
+    }, [blogId, dispatch])
+
+    const blogDetails = useSelector(state => state.blogDetails)
+    const { loading, blog, error } = blogDetails
+
     const Span = styled.div`
     width: auto;
     position: relative;
@@ -57,13 +69,12 @@ const BlogScreen = () => {
 
     return (
         <Layout>
-            <Navbar />
             <hr style={{ height: '0.1px', border: 'none', background: 'grey' }} />
             <div style={{ width: '100%' }}>
                 <div style={{ display: 'flex', padding: '1.8rem 0 3rem 0', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Span>
-                            <Text size="1.2rem" margin='0 1rem 0 0' weight={fonts.medium} >This is a first post</Text>
+                            <Text size="1.2rem" margin='0 1rem 0 0' weight={fonts.medium} >{blog?.title}</Text>
                             <hr style={{ height: '0.2rem', marginTop: '0.5rem', borderRadius: '50px', border: 'none', outline: 'none', background: '#38B9F0' }} />
                         </Span>
                     </div>
@@ -71,20 +82,12 @@ const BlogScreen = () => {
                 </div>
             </div>
             <div style={{ width: '85%', margin: '0 auto' }}>
-                <img style={{ width: '100%', height: '500px', objectFit: 'cover' }} src="https://images.unsplash.com/photo-1495567720989-cebdbdd97913?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8OXx8fGVufDB8fHx8&w=1000&q=80" alt="img" />
+                <img style={{ width: '100%', height: '500px', objectFit: 'cover' }} src={blog?.image} alt="img" />
                 <div>
-                    <Text spacing="0.1rem" weight={fonts.regular} size="1rem" padding='2rem 0 0.7rem 0' line="1.6rem">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </Text>
-                    <Text spacing="0.1rem" weight={fonts.regular} size="1rem" padding='0.7rem 0 2rem 0' line="1.6rem">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </Text>
+                    <Text spacing="0.1rem" weight={fonts.regular} size="1rem" padding='2rem 0 0.7rem 0' line="1.6rem">{blog?.sub_discription}</Text>
+                    <Text spacing="0.1rem" weight={fonts.regular} size="1rem" padding='0.7rem 0 2rem 0' line="1.6rem">{blog?.description}</Text>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <Button padding="0.5rem 0.8rem" size="0.9rem">Rupak Magar</Button>
+                        <Button padding="0.5rem 0.8rem" size="0.9rem">{blog?.author.username}</Button>
                         <div style={{ height: '2.1rem', width: '2.1rem', background: `${colors.sub_secondary}`, borderRadius: '50%', marginLeft: '1rem', display: 'grid', placeItems: 'center' }}>
                             <img style={{ width: '20px' }} src={Emoji} alt="emoji" />
                         </div>
