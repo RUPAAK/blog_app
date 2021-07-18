@@ -3,10 +3,10 @@ import {
     BLOG_DETAIL_REQUEST, BLOG_DETAIL_SUCCESS, BLOG_DETAIL_FAIL
 } from '../constants/blogConstants'
 
-export const allBlogsReducer= (state={}, action)=>{
+export const allBlogsReducer= (state={blogs:[]}, action)=>{
     switch(action.type){
         case BLOGS_LIST_REQUEST:
-            return {loading: true, state}
+            return {loading: true, blogs: []}
         case BLOGS_LIST_SUCCESS:
             return {loading: false, blogs: action.payload}
         case BLOGS_LIST_FAIL:
@@ -15,6 +15,7 @@ export const allBlogsReducer= (state={}, action)=>{
             return state
     }
 }
+
 export const blogDetailReducer= (state={}, action)=>{
     switch(action.type){
         case BLOG_DETAIL_REQUEST:

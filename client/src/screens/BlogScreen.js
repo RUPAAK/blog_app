@@ -10,8 +10,7 @@ import styled from 'styled-components'
 import Button from '../components/Button'
 import Footer from '../components/Footer'
 import IndividualComment from '../components/IndividualComment'
-
-import axios from 'axios'
+import axios from '../axios'
 
 const BlogScreen = ({ match }) => {
     const blogId = match.params.id
@@ -20,7 +19,7 @@ const BlogScreen = ({ match }) => {
 
     useEffect(() => {
         async function getBlog(){
-            const response= await axios.get(`http://localhost:5000/api/blog/${blogId}`)
+            const response= await axios.get(`/blog/${blogId}`)
             setblog(response.data)
             setlikes(response.data.likes)
         }

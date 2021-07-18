@@ -3,12 +3,12 @@ import {
     BLOG_DETAIL_REQUEST, BLOG_DETAIL_SUCCESS, BLOG_DETAIL_FAIL,
     BLOG_LIKE_REQUEST, BLOG_LIKE_SUCCESS, BLOG_LIKE_FAIL,
 } from '../constants/blogConstants'
-import axios from 'axios'
+import axios from '../axios'
 
 export const allBlogsAction = () => async (dispatch) => {
     try {
         dispatch({ type: BLOGS_LIST_REQUEST })
-        const { data } = await axios.get('http://localhost:5000/api/blog/blogs')
+        const { data } = await axios.get('/blog/blogs')
 
         dispatch({
             type: BLOGS_LIST_SUCCESS,
@@ -25,7 +25,7 @@ export const allBlogsAction = () => async (dispatch) => {
 export const blogDetailAction = (blogId) => async (dispatch) => {
     try {
         dispatch({ type: BLOG_DETAIL_REQUEST })
-        const {data}= await axios.get(`http://localhost:5000/api/blog/${blogId}`)
+        const {data}= await axios.get(`/blog/${blogId}`)
         console.log(data)
         dispatch({
             type: BLOG_DETAIL_SUCCESS,

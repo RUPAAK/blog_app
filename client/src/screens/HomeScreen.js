@@ -12,11 +12,12 @@ import { allBlogsAction } from '../actions/blogActions'
 
 const HomeScreen = () => {
     const dispatch = useDispatch()
+    const allBlogs = useSelector(state => state.allBlogs)
+    const { loading, blogs, error } = allBlogs
+
     useEffect(() => {
         dispatch(allBlogsAction())
     }, [dispatch])
-    const allBlogs = useSelector(state => state.allBlogs)
-    const { loading, blogs, error } = allBlogs
 
     const Span = styled.div`
         width: 100%;
@@ -65,10 +66,10 @@ const HomeScreen = () => {
                     <Link to="/register"><Button radius="32px" size="1rem" width="11.5rem" padding="0.5rem 0.4rem" weight={fonts.medium}>Login / Register</Button></Link>
                 </div>
                 <CardContainer>
-                    {blogs?.map(blog => <Blog blog={blog} />)}
+                    {blogs?.map((blog, index)  => <Blog key={index} blog={blog} />)}
                 </CardContainer>
             </div>
         </Layout>
     )
-}
+} 
 export default HomeScreen
