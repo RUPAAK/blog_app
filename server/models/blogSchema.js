@@ -6,7 +6,7 @@ const blogSchema= mongoose.Schema({
     description: {type: String, required: true},
     image: {type: String, default: ''},
     likes: {type: Number, default: 0},
-    comment: [{type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    comment: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
     author: {type: mongoose.Schema.Types.ObjectId, ref: "User"}
 })
 

@@ -7,19 +7,20 @@ import { colors } from '../colors'
 import Emoji from '../assests/icons/Emoji.png'
 import Comment from '../assests/icons/Comment.png'
 
+const Card = styled.span`
+width: 100%;
+background: ${colors.secondary_background};
+border-radius: 12px;
+`
+const Icon = styled.span`
+display: flex;
+height: auto;
+align-items: center;
+justify-content: center;
+margin-right: 0.5rem;
+`
 const Blog = ({blog}) => {
-    const Card = styled.span`
-    width: 100%;
-    background: ${colors.secondary_background};
-    border-radius: 12px;
-    `
-    const Icon = styled.span`
-    display: flex;
-    height: auto;
-    align-items: center;
-    justify-content: center;
-    margin-right: 0.5rem;
-    `
+
     const trim=(text, n)=>{
         return text?.length>n? text.substr(0, n-1)+ '...': text
     }

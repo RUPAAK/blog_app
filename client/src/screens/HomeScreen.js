@@ -10,6 +10,34 @@ import Button from '../components/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { allBlogsAction } from '../actions/blogActions'
 
+
+const Span = styled.div`
+width: 100%;
+position: relative;
+`
+const Search = styled.input`
+background: ${colors.sub_secondary};
+border: none;
+outline: none;
+padding: 0.6rem 0.4rem 0.6rem 0.7rem;
+margin-left: 1rem;
+color: ${colors.primary_text};
+border-radius: 32px;
+font-weight: bold;
+
+::placeholder,
+::-webkit-input-placeholder{
+    color: ${colors.primary_text};
+    font-size: 1rem;
+`
+const CardContainer = styled.div`
+display: grid;
+justify-content: center;
+grid-template-columns: repeat(4, 1fr);
+grid-column-gap: 1.5rem;
+grid-row-gap: 1.8rem;
+`
+
 const HomeScreen = () => {
     const dispatch = useDispatch()
     const allBlogs = useSelector(state => state.allBlogs)
@@ -18,35 +46,6 @@ const HomeScreen = () => {
     useEffect(() => {
         dispatch(allBlogsAction())
     }, [dispatch])
-
-    const Span = styled.div`
-        width: 100%;
-        position: relative;
-    `
-    const Search = styled.input`
-        background: ${colors.sub_secondary};
-        border: none;
-        outline: none;
-        padding: 0.6rem 0.4rem 0.6rem 0.7rem;
-        margin-left: 1rem;
-        color: ${colors.primary_text};
-        border-radius: 32px;
-        font-weight: bold;
-
-        ::placeholder,
-        ::-webkit-input-placeholder{
-            color: ${colors.primary_text};
-            font-size: 1rem;
-    `
-    const CardContainer = styled.div`
-        display: grid;
-        justify-content: center;
-        grid-template-columns: repeat(4, 1fr);
-        grid-column-gap: 1.5rem;
-        grid-row-gap: 1.8rem;
-    `
-
-
 
     return (
         <Layout>

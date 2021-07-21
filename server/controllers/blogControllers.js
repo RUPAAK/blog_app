@@ -1,5 +1,6 @@
 const asyncHandler= require('express-async-handler')
 const Blog= require('../models/blogSchema')
+const Comment= require('../models/commentSchema')
 
 
 const newPost= asyncHandler(async(req, res)=>{
@@ -38,7 +39,15 @@ const allBLogs= asyncHandler(async(req, res)=>{
 const blogDetail= asyncHandler(async(req, res)=>{
     try {
         const blog= await Blog.findById(req.params.id).populate("author", "username")
-        res.status(200).json(blog)
+        let comments= []
+        for(let i=0; i<blog.comment.length; i++){
+            const comment= await Comment.findById(blog.comment[i]).populate('userId', "username");
+            comments.push(comment)
+        }
+        res.status(200).json({
+            blog_details: blog,
+            comments
+        })
     } catch (error) {
         res.status(400)
         throw new Error(error)
@@ -61,4 +70,18 @@ const likeBlog= asyncHandler(async(req, res)=>{
     }
 })
 
-module.exports= {newPost, allBLogs, blogDetail, likeBlog}
+const addComment= asyncHandler(async(req, res)=>{
+    const {comment_text, userId}= req.body
+    try {
+        const newComment= await Comment({comment_text, userId}).save()
+        const blog= await Blog.findById(req.params.id);
+        blog.comment.push(newComment._id);
+        blog.save()
+        res.status(200).json(blog)
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
+})
+
+module.exports= {newPost, allBLogs, blogDetail, likeBlog, addComment}

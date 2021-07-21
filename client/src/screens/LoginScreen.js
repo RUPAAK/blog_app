@@ -10,30 +10,32 @@ import Button from '../components/Button'
 import Email from '../assests/icons/Email.png'
 import Password from '../assests/icons/Password.png'
 
+const Span = styled.div`
+width: 100%;
+position: relative;
+`
+const Div= styled.div`
+width: 40%;
+margin: 0 auto;
+padding: 2rem 0;
+background: ${colors.secondary_background};
+display: flex;
+align-items: center;
+flex-direction: column;
+border-radius: 32px;
+`
+const InputContiner= styled.div`
+display: flex;
+align-items: center;
+width: 400px;
+position: relative;
+overflow: hidden;
+border-radius: 12px;
+`
+
 
 const RegisterScreen = () => {
-    const Span = styled.div`
-        width: 100%;
-        position: relative;
-    `
-    const Div= styled.div`
-        width: 40%;
-        margin: 0 auto;
-        padding: 2rem 0;
-        background: ${colors.secondary_background};
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        border-radius: 32px;
-    `
-    const InputContiner= styled.div`
-        display: flex;
-        align-items: center;
-        width: 400px;
-        position: relative;
-        overflow: hidden;
-        border-radius: 12px;
-    `
+
 
     return (
         <Layout>

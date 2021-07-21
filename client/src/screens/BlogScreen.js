@@ -12,72 +12,91 @@ import Footer from '../components/Footer'
 import IndividualComment from '../components/IndividualComment'
 import axios from '../axios'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+const Span = styled.div`
+width: auto;
+position: relative;
+`
+const CommentSection = styled.div`
+    width: 400px;
+    height: auto;
+    background: red;
+    margin: 1rem 0;
+    border-radius: 12px;
+    background: ${colors.secondary_background};
+`
+const TextArea = styled.textarea`
+    width: 100%;
+    min-height: 8rem;
+    padding: 1rem;
+    background: ${colors.secondary_background};
+    border: none;
+    outline: none;
+    color: ${colors.primary_text};
+    font-size: 1rem;
+    border-radius: 12px;
+
+    ::placeholder,
+    ::-webkit-input-placeholder{
+        color: ${colors.primary_text};
+        font-size: 1rem;
+`
+const AddComment = styled.button`
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    background: ${colors.sub_secondary};
+    color: ${colors.primary_text};
+    font-weight: ${fonts.bold};
+    font-size: 1rem;
+`
+
 const BlogScreen = ({ match }) => {
     const blogId = match.params.id
     const [blog, setblog] = useState([])
     const [likes, setlikes] = useState(0)
 
+    const [comment, setcomment] = useState('')
+    const [comments, setcomments] = useState([])
+
     useEffect(() => {
         async function getBlog(){
             const response= await axios.get(`/blog/${blogId}`)
-            setblog(response.data)
-            setlikes(response.data.likes)
+            setblog(response.data.blog_details)
+            setlikes(response.data.blog_details.likes)
+            setcomments(response.data.comments)
         }
         getBlog()
-    }, [blogId])
+    }, [blogId, comment])
 
     const likeAdd = () => {
         async function addLike() {
-            const response = await axios.put(`http://localhost:5000/api/blog/${blogId}/like`)
+            const response = await axios.put(`/blog/${blogId}/like`)
             setlikes(response.data.likes)
         }
         addLike()
     }
 
-    const Span = styled.div`
-    width: auto;
-    position: relative;
-    `
-    const CommentSection = styled.div`
-        width: 400px;
-        height: auto;
-        background: red;
-        margin: 1rem 0;
-        border-radius: 12px;
-        background: ${colors.secondary_background};
-    `
-    const TextArea = styled.textarea`
-        width: 100%;
-        min-height: 8rem;
-        padding: 1rem;
-        background: ${colors.secondary_background};
-        border: none;
-        outline: none;
-        color: ${colors.primary_text};
-        font-size: 1rem;
-        border-radius: 12px;
+    const onChangeHandler=(e)=>{
+        setcomment(e.target.value)
+    }
 
-        ::placeholder,
-        ::-webkit-input-placeholder{
-            color: ${colors.primary_text};
-            font-size: 1rem;
-    `
-    const AddComment = styled.button`
-        position: absolute;
-        bottom: 1rem;
-        right: 2rem;
-        padding: 0.5rem 0.6rem;
-        border-radius: 12px;
-        border: none;
-        outline: none;
-        background: ${colors.sub_secondary};
-        color: ${colors.primary_text};
-        font-weight: ${fonts.bold};
-        font-size: 1rem;
-    `
+    const commentAddHandler=async()=>{
+        await axios.post(`/blog/${blogId}/comment`, {comment_text: comment, userId: '60eedd2bcf31553b285ffb79'})
+        setcomment('')
+        toast("Wow so easy!");
+    }
 
     return (
         <Layout>
+                    {/* <ToastContainer /> */}
         <hr style={{ height: '0.1px', border: 'none', background: 'grey' }} />
         <div style={{ width: '100%' }}>
             <div style={{ display: 'flex', padding: '1.8rem 0 3rem 0', justifyContent: 'space-between' }}>
@@ -110,14 +129,14 @@ const BlogScreen = ({ match }) => {
                 {/* comments */}
                 <div style={{ padding: '0 0 3rem 0' }}>
                     <div style={{ margin: '0 0 3rem 0' }}>
-                        <IndividualComment />
+                    {comments?.map(onecomment=> <IndividualComment key={onecomment._id} onecomment={onecomment} />)}
                     </div>
                     <Button radius="32px" size="1rem" width="10rem" padding="0.5rem 0.4rem" weight={fonts.medium}>See all comments</Button>
                 </div>
 
                 <div style={{ position: 'relative', width: '80%' }}>
-                    <TextArea placeholder="Add Comment..." />
-                    <AddComment>Add Comment</AddComment>
+                    <TextArea value={comment} onChange={(e)=> onChangeHandler(e)} placeholder="Add Comment..." />
+                    <AddComment onClick={commentAddHandler}>Add Comment</AddComment>
                 </div>
             </div>
         </div>

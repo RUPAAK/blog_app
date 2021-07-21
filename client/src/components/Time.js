@@ -3,6 +3,12 @@ import {colors} from '../colors'
 import styled from 'styled-components'
 import { fonts } from '../fonts'
 
+const Data= styled.span`
+font-size: ${props=> props.size};
+padding-right: 0.2rem;
+color: ${props=> props.color};
+font-weight: ${props=> props.weight || ''};
+`
 const Time=()=>{
     const [hour, sethour] = useState(0)
     const [minute, setminute] = useState(0)
@@ -20,12 +26,7 @@ const Time=()=>{
     useEffect(()=>{
         getDate()
     }, [])
-    const Data= styled.span`
-        font-size: ${props=> props.size};
-        padding-right: 0.2rem;
-        color: ${props=> props.color};
-        font-weight: ${props=> props.weight || ''};
-    `
+
     return(
         <>
             <div style={{display: 'flex', alignItems: 'center'}}>

@@ -4,12 +4,13 @@ import {colors} from '../colors'
 import {fonts} from '../fonts'
 import Text from './Text' 
 
+const Logos= styled.span`
+width: auto;
+display: flex;
+align-items: center;
+`
 const Logo=()=>{
-    const Logos= styled.span`
-        width: auto;
-        display: flex;
-        align-items: center;
-    `
+
     return(
         <Logos>
             <img style={{width: '50px'}} src={Horse} alt="logo" />
