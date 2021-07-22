@@ -31,7 +31,7 @@ const Blog = ({blog}) => {
             <div style={{
                 width: '100%', padding: '0.4rem 1rem', display: 'flex', justifyContent: 'space-between'
             }}>
-                <Link to={`/blog/${blog._id}`}><Button padding="0.4rem 0.8rem">Read more...</Button></Link>
+                <Link to={`/blogs/${blog._id}`}><Button padding="0.4rem 0.8rem">Read more...</Button></Link>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <Icon>
                         <Text padding="0 0 0 0.1rem" size="1.1rem">{blog.likes}</Text>

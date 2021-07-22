@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Route exact path="/" component={HomeScreen} />
-      <Route exact path="/blog/:id" component={BlogScreen} />
+      <Route exact path="/blogs/:id" component={BlogScreen} />
       <Route exact path="/register" component={RegisterScreen} />
       <Route exact path="/login" component={LoginScreen} />
       <Route exact path="/admin/editor" component={EditorScreen} />

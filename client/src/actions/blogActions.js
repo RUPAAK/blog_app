@@ -8,7 +8,7 @@ import axios from '../axios'
 export const allBlogsAction = () => async (dispatch) => {
     try {
         dispatch({ type: BLOGS_LIST_REQUEST })
-        const { data } = await axios.get('/blog/blogs')
+        const { data } = await axios.get('/blogs/allblogs')
 
         dispatch({
             type: BLOGS_LIST_SUCCESS,
@@ -25,7 +25,7 @@ export const allBlogsAction = () => async (dispatch) => {
 export const blogDetailAction = (blogId) => async (dispatch) => {
     try {
         dispatch({ type: BLOG_DETAIL_REQUEST })
-        const {data}= await axios.get(`/blog/${blogId}`)
+        const {data}= await axios.get(`/blogs/${blogId}`)
         console.log(data)
         dispatch({
             type: BLOG_DETAIL_SUCCESS,

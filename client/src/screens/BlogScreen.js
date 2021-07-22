@@ -68,17 +68,17 @@ const BlogScreen = ({ match }) => {
 
     useEffect(() => {
         async function getBlog(){
-            const response= await axios.get(`/blog/${blogId}`)
+            const response= await axios.get(`/blogs/${blogId}`)
             setblog(response.data.blog_details)
             setlikes(response.data.blog_details.likes)
             setcomments(response.data.comments)
         }
         getBlog()
-    }, [blogId, comment])
+    }, [blogId])
 
     const likeAdd = () => {
         async function addLike() {
-            const response = await axios.put(`/blog/${blogId}/like`)
+            const response = await axios.put(`/blogs/${blogId}/like`)
             setlikes(response.data.likes)
         }
         addLike()
@@ -89,7 +89,7 @@ const BlogScreen = ({ match }) => {
     }
 
     const commentAddHandler=async()=>{
-        await axios.post(`/blog/${blogId}/comment`, {comment_text: comment, userId: '60eedd2bcf31553b285ffb79'})
+        await axios.post(`/blogs/${blogId}/comment`, {comment_text: comment, userId: '60eedd2bcf31553b285ffb79'})
         setcomment('')
         toast("Wow so easy!");
     }

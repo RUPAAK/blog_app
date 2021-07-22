@@ -3,7 +3,7 @@ const { newPost, allBLogs, blogDetail,likeBlog, addComment } = require('../contr
 
 
 route.post('/newblog/:id', newPost)
-route.get('/blogs', allBLogs)
+route.get('/allblogs', allBLogs)
 route.get('/:id', blogDetail)
 route.put('/:id/like', likeBlog)
 route.post('/:id/comment', addComment)
