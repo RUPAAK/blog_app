@@ -25,7 +25,6 @@ mongoose.connect(process.env.MONGO, {
     console.error(`Error-${e.message}`)
     process.exit(1)
 })
-
 app.use(notFound)
 app.use(errorHandler)
 

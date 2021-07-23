@@ -89,7 +89,7 @@ const BlogScreen = ({ match }) => {
     }
 
     const commentAddHandler=async()=>{
-        await axios.post(`/blogs/${blogId}/comment`, {comment_text: comment, userId: '60eedd2bcf31553b285ffb79'})
+        await axios.post(`/blogs/${blogId}/comment`, {comment_text: comment, userId: '60f91907cc963b3be4b78828'})
         setcomment('')
         toast("Wow so easy!");
     }
