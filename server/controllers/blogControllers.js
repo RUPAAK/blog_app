@@ -37,8 +37,8 @@ const allBLogs= asyncHandler(async(req, res)=>{
 })
 
 const blogDetail= asyncHandler(async(req, res)=>{
-    try {
-        const blog= await Blog.findById(req.params.id).populate("author", "username")
+    const blog= await Blog.findById(req.params.id).populate("author", "username")
+    if(blog){
         let comments= []
         for(let i=0; i<blog.comment.length; i++){
             const comment= await Comment.findById(blog.comment[i]).populate('userId', "username");
@@ -48,9 +48,9 @@ const blogDetail= asyncHandler(async(req, res)=>{
             blog_details: blog,
             comments
         })
-    } catch (error) {
-        res.status(400)
-        throw new Error(error)
+    }
+    if(!blog){
+        res.status(404)
     }
 })
 
