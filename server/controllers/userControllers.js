@@ -3,8 +3,7 @@ const User = require('../models/userSchema')
 const generateToken= require('../middlewares/generateToken')
 
 const addUser = asyncHandler(async (req, res) => {
-    const { username, email, password, isAdmin } = req.body
-    try {
+    const { username, email, password } = req.body
         if (!username || !email || !password) {
             res.status(400)
             throw new Error('Empty field not valid')
@@ -22,10 +21,6 @@ const addUser = asyncHandler(async (req, res) => {
             res.status(400)
             throw new Error("User already exists")
         }
-    } catch (error) {
-        res.status(400)
-        throw new Error(error)
-    }
 })
 
 const userLogin= asyncHandler(async(req, res)=>{

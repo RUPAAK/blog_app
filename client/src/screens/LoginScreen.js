@@ -9,6 +9,8 @@ import styled from 'styled-components'
 import Button from '../components/Button'
 import Email from '../assests/icons/Email.png'
 import Password from '../assests/icons/Password.png'
+import {userLoginAction} from '../actions/userActions'
+import {useSelector, useDispatch} from 'react-redux'
 
 const Span = styled.div`
 width: 100%;
@@ -34,8 +36,22 @@ border-radius: 12px;
 `
 
 
-const RegisterScreen = () => {
+const RegisterScreen = ({history}) => {
+    const [email, setemail] = useState('')
+    const [password, setpassword] = useState('')
+    const dispatch = useDispatch()
+    const userLogin= useSelector(state=> state.userLogin)
+    const {loading, useDetails, error}= userLogin
 
+    useEffect(() => {
+        if(userDetails){
+            history.pushState('/')
+        }
+    }, [userDetails])
+
+    const loginHandler= ()=>{
+        dispatch(userLoginAction(email, password))
+    }
 
     return (
         <Layout>
@@ -54,15 +70,15 @@ const RegisterScreen = () => {
                 <Div>
                     <InputContiner>
                         <Img src={Email} alt="email" />
-                        <Input placeholder="Email Address" />
+                        <Input onChange={(e)=> setemail(e.target.email)} value={email} placeholder="Email Address" />
                     </InputContiner>
                     <InputContiner>
                         <Img src={Password} alt="assword" />
-                        <Input type="password"  placeholder="Enter Password"/>
+                        <Input onChange={(e)=> setpassword(e.target.password)} value={password} type="password"  placeholder="Enter Password"/>
                     </InputContiner>
 
                     <div style={{margin: "1.5rem 0 0 0"}}>
-                        <Button size="1rem" weight= {fonts.medium} padding="0.5rem 0.8rem">Login</Button>
+                        <Button onClick={loginHandler} size="1rem" weight= {fonts.medium} padding="0.5rem 0.8rem">Login</Button>
                     </div>
                 </Div>
             </div>

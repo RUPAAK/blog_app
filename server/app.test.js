@@ -24,3 +24,42 @@ it('should return object- details of blog', async()=>{
         .expect(200)
     expect(response.body.blog_details).toBeDefined()
 })
+
+
+//user actions test
+
+it('should return error if name is empty', async()=>{
+    const response= await request(app)
+        .post('/api/users/register')
+        .send({
+            email: "rupak@gmail.com",
+            password: "kathmandu"
+        })
+        .expect(400)
+        
+    expect(response).toBeDefined()
+})
+
+it('should return error if email is empty', async()=>{
+    const response= await request(app)
+        .post('/api/users/register')
+        .send({
+            name: "Rupak",
+            password: "kathmandu"
+        })
+        .expect(400)
+            
+    expect(response).toBeDefined()
+})
+
+it('should return error if password is empty', async()=>{
+    const response= await request(app)
+        .post('/api/users/register')
+        .send({
+            name: "Rupak",
+            email: "rupak@gmail.com"
+        })
+        .expect(400)
+            
+    expect(response).toBeDefined()
+})
