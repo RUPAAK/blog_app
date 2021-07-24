@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Layout from '../components/GlobalComponents/Layout'
 import { Link } from 'react-router-dom'
 import { colors } from '../colors'
@@ -41,15 +41,16 @@ const RegisterScreen = ({history}) => {
     const [password, setpassword] = useState('')
     const dispatch = useDispatch()
     const userLogin= useSelector(state=> state.userLogin)
-    const {loading, useDetails, error}= userLogin
+    const {loading, userDetails, error}= userLogin
 
     useEffect(() => {
         if(userDetails){
-            history.pushState('/')
+            history.push('/')
         }
     }, [userDetails])
 
     const loginHandler= ()=>{
+        console.log(email, password)
         dispatch(userLoginAction(email, password))
     }
 
@@ -70,11 +71,11 @@ const RegisterScreen = ({history}) => {
                 <Div>
                     <InputContiner>
                         <Img src={Email} alt="email" />
-                        <Input onChange={(e)=> setemail(e.target.email)} value={email} placeholder="Email Address" />
+                        <Input onChange={(e)=> setemail(e.target.value)} value={email} placeholder="Email Address" />
                     </InputContiner>
                     <InputContiner>
                         <Img src={Password} alt="assword" />
-                        <Input onChange={(e)=> setpassword(e.target.password)} value={password} type="password"  placeholder="Enter Password"/>
+                        <Input onChange={(e)=> setpassword(e.target.value)} value={password} type="password"  placeholder="Enter Password"/>
                     </InputContiner>
 
                     <div style={{margin: "1.5rem 0 0 0"}}>

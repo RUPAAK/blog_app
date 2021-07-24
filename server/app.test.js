@@ -26,9 +26,9 @@ it('should return object- details of blog', async()=>{
 })
 
 
-//user actions test
+//user register testing- (empty fields and successfull register)
 
-it('should return error if name is empty', async()=>{
+it('should return error if username is empty', async()=>{
     const response= await request(app)
         .post('/api/users/register')
         .send({
@@ -44,7 +44,7 @@ it('should return error if email is empty', async()=>{
     const response= await request(app)
         .post('/api/users/register')
         .send({
-            name: "Rupak",
+            username: "Rupak",
             password: "kathmandu"
         })
         .expect(400)
@@ -56,10 +56,54 @@ it('should return error if password is empty', async()=>{
     const response= await request(app)
         .post('/api/users/register')
         .send({
-            name: "Rupak",
+            username: "Rupak",
             email: "rupak@gmail.com"
         })
         .expect(400)
             
     expect(response).toBeDefined()
 })
+
+it('should return object- user if register successful', async()=>{
+    const respone= await request(app)
+        .post('/api/users/register')
+        .send({
+            username: "Hari",
+            email: "hari@gmail.com",
+            password: "kathmandu"
+        })
+})
+
+//user login test- (empty field and successful login)
+it('should return error if email isempty', async()=>{
+    await request(app)
+        .post('/api/users/login')
+        .send({
+            password: "kathmandu"
+        })
+        .expect(400)
+})
+
+it('should return error if password isempty', async()=>{
+    await request(app)
+        .post('/api/users/login')
+        .send({
+            email: "rupakt@gmail.com"
+        })
+        .expect(400)
+})
+
+// it('should return object- user if register successful', async()=>{
+//     const response= await request(app)
+//         .post('/api/users/login')
+//         .send({
+//             username: "rakesh",
+//             email: "rakesh@gmail.com",
+//             password: "kathmandu"
+//         })
+//         .expect(200)
+//     expect(response.body).toEqual(expect.objectContaining({
+//         _id: expect.any(Struing),
+//         username: expect.any(Struing),
+//     }))
+// })

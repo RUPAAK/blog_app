@@ -10,6 +10,8 @@ import {Input, Img} from '../components/InputImg'
 import User from '../assests/icons/User.png'
 import Email from '../assests/icons/Email.png'
 import Password from '../assests/icons/Password.png'
+import {useDispatch, useSelector} from 'react-redux'
+import {userRegisterAction} from '../actions/userActions'
 
 const Span = styled.div`
 width: 100%;
@@ -35,7 +37,26 @@ border-radius: 12px;
 `
 
 const RegisterScreen = () => {
+    const dispatch = useDispatch()
+    const userRegister= useSelector(state=> state.userRegister)
+    const {loading, userDetals, error}= userRegister
+    
+    const [username, setusername] = useState('')
+    const [email, setemail] = useState('')
+    const [password, setpassword] = useState('')
+    const [confirmpassword, setconfirmpassword] = useState('')
 
+    const registerHandler=()=>{
+        if(password == confirmpassword){
+            dispatch(userRegisterAction(username, email, password))
+            setusername('')
+            setemail('')
+            setpassword('')
+            setconfirmpassword('')
+        }else{
+            alert('Password not matching')
+        }
+    }
     return (
         <Layout>
             <hr style={{ height: '0.1px', border: 'none', background: 'grey' }} />
@@ -53,22 +74,22 @@ const RegisterScreen = () => {
                 <Div>
                     <InputContiner>
                         <Img src={User} alt="user" />
-                        <Input placeholder="Username" type="text" />
+                        <Input onChange={(e)=> setusername(e.target.value)} value={username} placeholder="Username" type="text" />
                     </InputContiner>
                     <InputContiner>
                         <Img src={Email} alt="email" />
-                        <Input placeholder="Email Address" />
+                        <Input onChange={(e)=> setemail(e.target.value)} value={email} placeholder="Email Address" />
                     </InputContiner>
                     <InputContiner>
                         <Img src={Password} alt="assword" />
-                        <Input type="password" placeholder="Enter Password" />
+                        <Input onChange={(e)=> setpassword(e.target.value)} value={password} type="password" placeholder="Enter Password" />
                     </InputContiner>
                     <InputContiner>
                         <Img src={Password} alt="assword" />
-                        <Input type="password" placeholder="Confirm Password" />
+                        <Input onChange={(e)=> setconfirmpassword(e.target.value)} value={confirmpassword} type="password" placeholder="Confirm Password" />
                     </InputContiner>
                     <div style={{ margin: "1.5rem 0 0 0" }}>
-                        <Button size="1rem" weight={fonts.medium} padding="0.5rem 0.8rem">Register</Button>
+                        <Button onClick={registerHandler} size="1rem" weight={fonts.medium} padding="0.5rem 0.8rem">Register</Button>
                     </div>
                 </Div>
             </div>

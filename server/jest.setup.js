@@ -24,4 +24,4 @@
 //     await mongoose.conneciton.close()
 // })
 
-jest.setTimeout(200000);
+jest.setTimeout(500000);
