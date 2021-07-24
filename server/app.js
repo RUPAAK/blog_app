@@ -29,6 +29,8 @@ app.use(notFound)
 app.use(errorHandler)
 
 
-app.listen(process.env.PORT || 5000, ()=> console.log('SERVER UP AND RUNNING'))
+if(process.env.NODE_ENV !== 'test'){
+    app.listen(process.env.PORT, ()=> console.log('SERVER UP AND RUNNING'))
+}
 
 module.exports= app

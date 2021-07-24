@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/app.js",
-    "test": "jest --watchAll --no-cache",
-    "test:watch": "jest --watch -o --runInBand --detectOpenHandles --verbose"
+    "test": "jest --forceExit --detectOpenHandles --watchAll --maxWorkers=1"
   },
   "keywords": [],
   "author": "",
